@@ -18,26 +18,7 @@
 
 @implementation FirstViewController
 
-- (void)setButtonImageNamed:(NSString *)imageName
-{
-    /*
-	if (!imageName)
-	{
-		imageName = @"playButton";
-	}
-	//[currentImageName autorelease];
-	//currentImageName = [imageName retain];
-	
-	UIImage *image = [UIImage imageNamed:imageName];
-	
-	[button.layer removeAllAnimations];
-	[button setImage:image forState:0];
-    
-	if ([imageName isEqual:@"loadingbutton.png"])
-	{
-		[self spinButton];
-	}*/
-}
+
 
 //
 // destroyStreamer
@@ -57,7 +38,7 @@
 		progressUpdateTimer = nil;
 		*/
 		[streamer stop];
-		//[streamer release];
+		[streamer release];
 		streamer = nil;
 	}
 }
@@ -76,8 +57,7 @@
     
 	[self destroyStreamer];
 	
-	NSString *escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:9650",
-                                                                                                   NULL, NULL, kCFStringEncodingUTF8);
+	NSString *escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:9650", NULL, NULL, kCFStringEncodingUTF8);
     
 	NSURL *url = [NSURL URLWithString:escapedValue];
 	streamer = [[AudioStreamer alloc] initWithURL:url];
@@ -108,67 +88,14 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	[self createStreamer];
-    [streamer start];
     /*
 	MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:volumeSlider.bounds];
 	[volumeSlider addSubview:volumeView];
 	[volumeView sizeToFit];
-	[self setButtonImageNamed:@"playbutton.png"];
      */
-}
-
-//
-// spinButton
-//
-// Shows the spin button when the audio is loading. This is largely irrelevant
-// now that the audio is loaded from a local file.
-//
-- (void)spinButton
-{
-    
-	[CATransaction begin];
-	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-    /*
-	CGRect frame = [button frame];
-	button.layer.anchorPoint = CGPointMake(0.5, 0.5);
-	button.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
-     */
-	[CATransaction commit];
-    
-	[CATransaction begin];
-	[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
-	[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
-    
-	CABasicAnimation *animation;
-	animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-	animation.fromValue = [NSNumber numberWithFloat:0.0];
-	animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
-	animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
-	animation.delegate = self;
-    /*
-	[button.layer addAnimation:animation forKey:@"rotationAnimation"];
-    */
-	[CATransaction commit];
-    
-}
-
-//
-// animationDidStop:finished:
-//
-// Restarts the spin animation on the button when it ends. Again, this is
-// largely irrelevant now that the audio is loaded from a local file.
-//
-// Parameters:
-//    theAnimation - the animation that rotated the button.
-//    finished - is the animation finised?
-//
-- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
-{
-	if (finished)
-	{
-		[self spinButton];
-	}
+	[button setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
+    [self createStreamer];
+    playing = true;
 }
 
 //
@@ -183,22 +110,21 @@
 //
 - (IBAction)buttonPressed:(id)sender
 {
-    [self createStreamer];
-    [streamer start];
-    /*
-	if ([currentImageName isEqual:@"playbutton.png"])
+	if (playing)
 	{
-		[downloadSourceField resignFirstResponder];
-		
 		[self createStreamer];
-		[self setButtonImageNamed:@"loadingbutton.png"];
-		[streamer start];
+		[streamer stop];
+        playing = false;
+        [button setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
+        [self.view addSubview:button];
+        [super viewDidLoad];
 	}
 	else
 	{
-		[streamer stop];
+		[streamer start];
+        [button setImage:[UIImage imageNamed:@"pause_icon"] forState:UIControlStateNormal];
+        playing = true;
 	}
-     */
 }
 
 //
@@ -226,19 +152,7 @@
 //
 - (void)playbackStateChanged:(NSNotification *)aNotification
 {
-	if ([streamer isWaiting])
-	{
-		[self setButtonImageNamed:@"loadingbutton.png"];
-	}
-	else if ([streamer isPlaying])
-	{
-		[self setButtonImageNamed:@"stopbutton.png"];
-	}
-	else if ([streamer isIdle])
-	{
-		[self destroyStreamer];
-		[self setButtonImageNamed:@"playbutton.png"];
-	}
+	
 }
 
 //

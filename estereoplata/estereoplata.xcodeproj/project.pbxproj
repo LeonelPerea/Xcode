@@ -241,7 +241,7 @@
 					7D732BE817E2CEC60063862C = {
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
