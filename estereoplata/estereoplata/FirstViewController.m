@@ -88,11 +88,11 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-    /*
-	MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:volumeSlider.bounds];
-	[volumeSlider addSubview:volumeView];
+    
+	MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:volumen.bounds];
+	[volumen addSubview:volumeView];
 	[volumeView sizeToFit];
-     */
+    
 	[button setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
     [self createStreamer];
     playing = true;

@@ -224,11 +224,12 @@
 //
 - (IBAction)sliderMoved:(UISlider *)aSlider
 {
+    NSLog(@"sliderMoved");/*
 	if (streamer.duration)
 	{
 		double newSeekTime = (aSlider.value / 100.0) * streamer.duration;
 		[streamer seekToTime:newSeekTime];
-	}
+	}*/
 }
 
 //
@@ -266,6 +267,8 @@
 	{
 		double progress = streamer.progress;
 		double duration = streamer.duration;
+        NSLog(@"progress: %d",progress);
+        NSLog(@"duration: %d",duration);
 		
 		if (duration > 0)
 		{

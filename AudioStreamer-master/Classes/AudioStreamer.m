@@ -1092,12 +1092,14 @@ cleanup:
 {
 	double calculatedBitRate = [self calculatedBitRate];
 	
-	if (calculatedBitRate == 0 || fileLength == 0)
+	//if (calculatedBitRate == 0 || fileLength == 0)
+    if (calculatedBitRate == 0)
 	{
 		return 0.0;
 	}
 	
-	return (fileLength - dataOffset) / (calculatedBitRate * 0.125);
+	//return (fileLength - dataOffset) / (calculatedBitRate * 0.125);
+    return (dataOffset) / (calculatedBitRate * 0.125);
 }
 
 //

@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+//#import <MessageUI/MFMessageComposeViewController.h>
+#import <MessageUI/MessageUI.h>
 
-@interface SecondViewController : UIViewController
+@interface SecondViewController : UIViewController <MFMessageComposeViewControllerDelegate>
+{
+    IBOutlet UIButton *buttonSMS;
+}
+- (IBAction)buttonPressed:(id)sender;
 
 @end

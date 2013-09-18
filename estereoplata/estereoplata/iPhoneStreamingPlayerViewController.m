@@ -128,8 +128,11 @@
 	[super viewDidLoad];
 	
 	MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:volumeSlider.bounds];
-	[volumeSlider addSubview:volumeView];
+    volumeView.showsVolumeSlider = NO;
+    volumeView.showsRouteButton = NO; //Check
+    //ADD the volume icons
 	[volumeView sizeToFit];
+	[volumeSlider addSubview:volumeView];
 	
 	[self setButtonImageNamed:@"playbutton.png"];
 }
@@ -218,6 +221,7 @@
 //
 - (IBAction)sliderMoved:(UISlider *)aSlider
 {
+    NSLog(@"movimiento de slider");
 	if (streamer.duration)
 	{
 		double newSeekTime = (aSlider.value / 100.0) * streamer.duration;
@@ -233,6 +237,7 @@
 //
 - (void)playbackStateChanged:(NSNotification *)aNotification
 {
+    NSLog(@"cambioStado de reproducción");
 	if ([streamer isWaiting])
 	{
 		[self setButtonImageNamed:@"loadingbutton.png"];
@@ -256,6 +261,7 @@
 //
 - (void)updateProgress:(NSTimer *)updatedTimer
 {
+    NSLog(@"cambioProgreso");
 	if (streamer.bitRate != 0.0)
 	{
 		double progress = streamer.progress;

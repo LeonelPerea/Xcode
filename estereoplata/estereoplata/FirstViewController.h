@@ -18,7 +18,7 @@
     IBOutlet UILabel *artistaActual;
     IBOutlet UIImageView *album_image;
     IBOutlet UIProgressView *progreso;
-    IBOutlet UIProgressView *volumen;
+    IBOutlet UIView *volumen;
 }
 - (IBAction)buttonPressed:(id)sender;
 @end
