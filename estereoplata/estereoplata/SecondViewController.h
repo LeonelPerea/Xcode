@@ -15,5 +15,8 @@
     IBOutlet UIButton *buttonSMS;
 }
 - (IBAction)buttonPressed:(id)sender;
-
+- (IBAction)call1:(id)sender;
+- (IBAction)call2:(id)sender;
+- (IBAction)facebook:(id)sender;
+- (IBAction)twitter:(id)sender;
 @end

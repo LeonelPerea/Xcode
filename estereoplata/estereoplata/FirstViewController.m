@@ -117,6 +117,9 @@
     if ( [elementName isEqualToString:@"title"]) {
         [cancionActual setText:[NSString stringWithFormat:currentNodeContent]];
     }
+    if ( [elementName isEqualToString:@"listeners"]) {
+        [oyentes setText:[NSString stringWithFormat:currentNodeContent]];
+    }
 }
 
 

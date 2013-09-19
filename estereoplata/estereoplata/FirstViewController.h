@@ -16,6 +16,7 @@
     BOOL *playing;
 	IBOutlet UILabel *cancionActual;
     IBOutlet UILabel *artistaActual;
+    IBOutlet UILabel *oyentes;
     IBOutlet UIImageView *album_image;
     IBOutlet UIProgressView *progreso;
     IBOutlet UIView *volumen;

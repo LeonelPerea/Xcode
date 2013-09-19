@@ -17,20 +17,25 @@
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
 {
     switch (result) {
-        case MessageComposeResultCancelled:
+        case MessageComposeResultCancelled:{
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Cancelado" message:@"Tu mensaje ha sido cancela!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
             break;
-            
+        }
         case MessageComposeResultFailed:
         {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Fallo" message:@"Ha fallado el envio de tu mensaje!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
             break;
         }
             
-        case MessageComposeResultSent:
+        case MessageComposeResultSent:{
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Enviado" message:@"Tu mensaje ha sido enviado!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
             break;
-            
+        }
         default:
             break;
-            
     }
     
     [self dismissViewControllerAnimated:YES completion:NULL];
@@ -49,14 +54,29 @@
 - (IBAction)buttonPressed:(id)sender
 {
     if(![MFMessageComposeViewController canSendText]) {
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Tu dispositivo no soporta el envio de Mensajes de texto!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [warningAlert show];
         return;
     }
     
     [self sendSMS:@"ZER " recipientList:[NSArray arrayWithObjects:@"30500", NULL]];
 }
-
+- (IBAction)call1:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:4929229965"]];
+}
+- (IBAction)call2:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:4929226157"]];
+}
+- (IBAction)facebook:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/stereozer"]];
+}
+- (IBAction)twitter:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com"]];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
