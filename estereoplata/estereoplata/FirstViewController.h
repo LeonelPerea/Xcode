@@ -10,7 +10,7 @@
 
 @class AudioStreamer;
 
-@interface FirstViewController : UIViewController{
+@interface FirstViewController : UIViewController <NSXMLParserDelegate>{
     AudioStreamer *streamer;
     IBOutlet UIButton *button;
     BOOL *playing;
@@ -19,6 +19,7 @@
     IBOutlet UIImageView *album_image;
     IBOutlet UIProgressView *progreso;
     IBOutlet UIView *volumen;
+    NSMutableString *currentNodeContent;
 }
 - (IBAction)buttonPressed:(id)sender;
 @end

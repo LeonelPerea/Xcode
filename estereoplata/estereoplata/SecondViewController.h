@@ -10,7 +10,7 @@
 //#import <MessageUI/MFMessageComposeViewController.h>
 #import <MessageUI/MessageUI.h>
 
-@interface SecondViewController : UIViewController <MFMessageComposeViewControllerDelegate>
+@interface SecondViewController : UIViewController <MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate>
 {
     IBOutlet UIButton *buttonSMS;
 }

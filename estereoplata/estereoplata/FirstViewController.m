@@ -95,7 +95,32 @@
     
 	[button setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
     [self createStreamer];
-    playing = true;
+    playing = true;    
+
+    NSURL * url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=9650&server=live"];
+    NSData *data = [[NSData alloc]initWithContentsOfURL:url];
+    NSXMLParser *parser = [[NSXMLParser alloc]initWithData:data];
+    parser.delegate = self;
+    [parser parse];
+}
+
+// This returns the string of the characters encountered thus far. You may not necessarily get the longest character run. The parser reserves the right to hand these to the delegate as potentially many calls in a row to -parser:foundCharacters:
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
+    currentNodeContent = (NSMutableString *)[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+// sent when an end tag is encountered. The various parameters are supplied as above.
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
+    if ( [elementName isEqualToString:@"artist"]) {
+        [artistaActual setText:[NSString stringWithFormat:currentNodeContent]];
+    }
+    if ( [elementName isEqualToString:@"title"]) {
+        [cancionActual setText:[NSString stringWithFormat:currentNodeContent]];
+    }
+}
+
+
+-(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
 }
 
 //

@@ -22,8 +22,6 @@
             
         case MessageComposeResultFailed:
         {
-            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [warningAlert show];
             break;
         }
             
@@ -32,12 +30,23 @@
             
         default:
             break;
+            
     }
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)sendSMS:(NSString *)message recipientList:(NSArray *)recipents
+{
+    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+    messageController.messageComposeDelegate = self;
+    messageController.recipients = recipents;
+    messageController.body = message;
+    
+    [self presentViewController:messageController animated:YES completion:NULL];
+}
+
+- (IBAction)buttonPressed:(id)sender
 {
     if(![MFMessageComposeViewController canSendText]) {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -45,18 +54,7 @@
         return;
     }
     
-    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
-    messageController.messageComposeDelegate = self;
-    [messageController setRecipients:recipents];
-    [messageController setBody:message];
-    
-    [self presentViewController:messageController animated:YES completion:nil];
-}
-
-- (IBAction)buttonPressed:(id)sender
-{
-    [self sendSMS:@"ZER " recipientList:[NSArray arrayWithObjects:@"4928703286", nil]];
-    
+    [self sendSMS:@"ZER " recipientList:[NSArray arrayWithObjects:@"30500", NULL]];
 }
 
 - (void)viewDidLoad
