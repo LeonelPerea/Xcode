@@ -13,14 +13,17 @@
 @interface FirstViewController : UIViewController <NSXMLParserDelegate>{
     AudioStreamer *streamer;
     IBOutlet UIButton *button;
-    BOOL *playing;
-	IBOutlet UILabel *cancionActual;
+    BOOL playing;
+    @public
+    IBOutlet UILabel *cancionActual;
     IBOutlet UILabel *artistaActual;
     IBOutlet UILabel *oyentes;
     IBOutlet UIImageView *album_image;
     IBOutlet UIProgressView *progreso;
     IBOutlet UIView *volumen;
     NSMutableString *currentNodeContent;
+    NSString *valorPasado;
 }
+@property (nonatomic, strong) NSString *valorPasado;
 - (IBAction)buttonPressed:(id)sender;
 @end

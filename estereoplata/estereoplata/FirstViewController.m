@@ -18,7 +18,7 @@
 
 @implementation FirstViewController
 
-
+@synthesize valorPasado = _valorPasado;
 
 //
 // destroyStreamer
@@ -56,8 +56,38 @@
 	}
     
 	[self destroyStreamer];
-	
-	NSString *escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:9650", NULL, NULL, kCFStringEncodingUTF8);
+    NSString *escapedValue = nil;
+	if ([valorPasado isEqualToString:@"0"]) {
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:8901", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"1"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:8950", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"2"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:9007", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"3"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:9330", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"4"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:9501", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"5"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:9570", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"6"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:9650", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"7"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:9930", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"8"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:9850", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"9"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:2001", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"10"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:1021", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"11"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:1045", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"12"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:3006", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"13"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:1065", NULL, NULL, kCFStringEncodingUTF8);
+    }else if ([valorPasado isEqualToString:@"14"]){
+        escapedValue = (NSString *)CFURLCreateStringByAddingPercentEscapes(nil, (CFStringRef)@"Http://Zer.zuperdns.net:1650", NULL, NULL, kCFStringEncodingUTF8);
+    }
     
 	NSURL *url = [NSURL URLWithString:escapedValue];
 	streamer = [[AudioStreamer alloc] initWithURL:url];
@@ -87,21 +117,56 @@
 //
 - (void)viewDidLoad
 {
-	[super viewDidLoad];
+    [super viewDidLoad];
     
-	MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:volumen.bounds];
+    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:volumen.bounds];
 	[volumen addSubview:volumeView];
 	[volumeView sizeToFit];
     
 	[button setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
     [self createStreamer];
-    playing = true;    
-
-    NSURL * url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=9650&server=live"];
+    playing = true;
+    NSURL * url = nil;
+    if ([valorPasado isEqualToString:@"0"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=8901&server=live"];
+    }else if ([valorPasado isEqualToString:@"1"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=8950&server=live"];
+    }else if ([valorPasado isEqualToString:@"2"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=9007&server=live"];
+    }else if ([valorPasado isEqualToString:@"3"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=9330&server=live"];
+    }else if ([valorPasado isEqualToString:@"4"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=9501&server=live"];
+    }else if ([valorPasado isEqualToString:@"5"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=9570&server=live"];
+    }else if ([valorPasado isEqualToString:@"6"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=9650&server=live"];
+    }else if ([valorPasado isEqualToString:@"7"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=9930&server=live"];
+    }else if ([valorPasado isEqualToString:@"8"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=9850&server=live"];
+    }else if ([valorPasado isEqualToString:@"9"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=2001&server=live"];
+    }else if ([valorPasado isEqualToString:@"10"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=1021&server=live"];
+    }else if ([valorPasado isEqualToString:@"11"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=1045&server=live"];
+    }else if ([valorPasado isEqualToString:@"12"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=3006&server=live"];
+    }else if ([valorPasado isEqualToString:@"13"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=1065&server=live"];
+    }else if ([valorPasado isEqualToString:@"14"]) {
+        url = [NSURL URLWithString:@"http://zuperhosting.net/templatesesp/players/listeners.php?puerto=1650&server=live"];
+    }
     NSData *data = [[NSData alloc]initWithContentsOfURL:url];
     NSXMLParser *parser = [[NSXMLParser alloc]initWithData:data];
     parser.delegate = self;
     [parser parse];
+}
+
+-(void)setValorPasado:(NSString*)valorPasados
+{
+    valorPasado = valorPasados;
 }
 
 // This returns the string of the characters encountered thus far. You may not necessarily get the longest character run. The parser reserves the right to hand these to the delegate as potentially many calls in a row to -parser:foundCharacters:
@@ -242,7 +307,7 @@
 //
 - (void)dealloc
 {
-	[self destroyStreamer];
+	//[self destroyStreamer];
     /*
 	if (progressUpdateTimer)
 	{
